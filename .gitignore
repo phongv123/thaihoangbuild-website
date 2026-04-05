@@ -1,0 +1,7 @@
+frontend/.env
+backend/.env
+frontend/.env.example
+backend/.env.example
+node_modules/
+frontend/README.md
+backend/README.md
