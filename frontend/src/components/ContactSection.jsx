@@ -1,5 +1,6 @@
 import React from "react";
 import { Mail, Headphones, MapPin } from "lucide-react";
+import { api } from "../api";
 
 export default function ContactSection() {
     return (
@@ -94,6 +95,7 @@ export default function ContactSection() {
                 <form
                     onSubmit={async (e) => {
                         e.preventDefault();
+
                         const formData = {
                             name: e.target.name.value,
                             phone: e.target.phone.value,
@@ -103,13 +105,9 @@ export default function ContactSection() {
                         };
 
                         try {
-                            const res = await fetch("http://localhost:4000/api/leads", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify(formData),
-                            });
+                            const res = await api.post("/leads", formData);
 
-                            if (res.ok) {
+                            if (res.status === 201 || res.status === 200) {
                                 alert("✅ Gửi liên hệ thành công!");
                                 e.target.reset();
                             } else {
@@ -117,7 +115,7 @@ export default function ContactSection() {
                             }
                         } catch (err) {
                             console.error(err);
-                            alert("❌ Có lỗi kết nối server.");
+                            alert("❌ Có lỗi server hoặc mạng.");
                         }
                     }}
                     className="grid grid-cols-1 md:grid-cols-2 gap-6"
