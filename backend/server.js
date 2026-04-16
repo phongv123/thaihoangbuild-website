@@ -43,7 +43,22 @@ app.use(
 )
 
 // middleware chung
-app.use(cors()) //có tên miền riêng thì không xài cái này nữa mà xài cái phía dưới.
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://thaihoangbuild.vercel.app'
+]
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      console.log("❌ Blocked by CORS:", origin)
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true
+})) //có tên miền riêng thì không xài cái này nữa mà xài cái phía dưới.
 
 //Nếu có tên miền riêng
 // app.use(cors({
