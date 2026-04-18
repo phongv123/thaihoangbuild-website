@@ -45,20 +45,24 @@ app.use(
 // middleware chung
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://thaihoangbuild.vercel.app'
+  'https://thaihoangbuild-website-vercel.vercel.app', // sửa đúng domain vercel của bạn
+  'https://thaihoangbuild.com'
 ]
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true)
-    } else {
-      console.log("❌ Blocked by CORS:", origin)
-      callback(new Error('Not allowed by CORS'))
+    if (!origin) return callback(null, true)
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true)
     }
+    return callback(new Error('Not allowed by CORS'))
   },
-  credentials: true
-})) //có tên miền riêng thì không xài cái này nữa mà xài cái phía dưới.
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
+
+// 🔥 QUAN TRỌNG: thêm dòng này
+app.options('*', cors()) //có tên miền riêng thì không xài cái này nữa mà xài cái phía dưới.
 
 //Nếu có tên miền riêng
 // app.use(cors({
@@ -101,4 +105,7 @@ const port = process.env.PORT || 4000
 app.listen(port, () => console.log(`🚀 API running on port ${port}`))
 
 //lead chong spam
-app.use('/api/leads', leadLimiter)
+app.use('/api/leads', (req, res, next) => {
+  if (req.method === 'OPTIONS') return next()
+  return leadLimiter(req, res, next)
+}, leadRoutes)
