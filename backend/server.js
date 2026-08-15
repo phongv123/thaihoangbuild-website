@@ -19,6 +19,10 @@ import adminLogin from "./src/routes/admin/login.js";
 import adminProjects from './src/routes/admin/projects.js'
 import adminProducts from './src/routes/admin/products.js'
 import adminCategories from './src/routes/admin/categories.js'
+import siteConfigRoutes from './src/routes/admin/siteConfig.js';
+import bannersRoutes from './src/routes/admin/banners.js';
+import uploadRoutes from './src/routes/admin/upload.js';
+import leadsRoutes from './src/routes/admin/leads.js';
 
 // middleware
 import adminAuth from './src/middleware/adminAuth.js'
@@ -61,7 +65,9 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
-// 🔥 QUAN TRỌNG: thêm dòng này
+app.use(express.json({ limit: '10mb' }));
+
+// QUAN TRỌNG: thêm dòng này
 app.options('*', cors()) //có tên miền riêng thì không xài cái này nữa mà xài cái phía dưới.
 
 //Nếu có tên miền riêng
@@ -97,6 +103,13 @@ app.use("/api/admin", adminLogin);
 app.use('/api/admin/projects', adminAuth, adminProjects)
 app.use('/api/admin/products', adminAuth, adminProducts)
 app.use('/api/admin/categories', adminAuth, adminCategories)
+app.use('/api/admin/siteConfig', adminAuth, siteConfigRoutes);
+app.use('/api/admin/banners', adminAuth, bannersRoutes);
+app.use('/api/admin/upload', adminAuth, uploadRoutes);
+app.use('/api/admin/leads', adminAuth, leadsRoutes);
+
+app.use('/api/siteConfig', siteConfigRoutes);
+
 
 // error handler đặt cuối cùng
 app.use(errorHandler)
