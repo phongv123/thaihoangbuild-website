@@ -1,36 +1,53 @@
-// src/routes/admin/siteConfig.js
-import express from 'express';
-import { SiteConfig } from '../../models/siteConfigModel.js';
-import adminAuth from '../../middleware/adminAuth.js';
+import express from "express";
+import { SiteConfig } from "../../models/siteConfigModel.js";
 
 const router = express.Router();
 
-// GET /api/site-config - Lấy cấu hình công khai ra Frontend
-router.get('/', async (req, res) => {
+// GET /api/admin/site-config
+router.get("/", async (_req, res) => {
     try {
-        let config = await SiteConfig.findOne();
+        let config = await SiteConfig.findOne().lean();
+
         if (!config) {
             config = await SiteConfig.create({});
+            config = config.toObject();
         }
+
         res.json(config);
     } catch (error) {
-        res.status(500).json({ message: 'Lỗi lấy cấu hình: ' + error.message });
+        console.error("Admin GET site config error:", error);
+
+        res.status(500).json({
+            message: "Lỗi lấy cấu hình website",
+            error: error.message,
+        });
     }
 });
 
-// PUT /api/admin/site-config - Lưu cấu hình từ Admin CMS
-router.put('/', adminAuth, async (req, res) => {
+// PUT /api/admin/site-config
+router.put("/", async (req, res) => {
     try {
         let config = await SiteConfig.findOne();
+
         if (!config) {
             config = new SiteConfig(req.body);
         } else {
             Object.assign(config, req.body);
         }
+
         await config.save();
-        res.json({ message: '✅ Cập nhật cấu hình website thành công', config });
+
+        res.json({
+            message: "Cập nhật cấu hình website thành công",
+            config,
+        });
     } catch (error) {
-        res.status(500).json({ message: 'Lỗi lưu cấu hình: ' + error.message });
+        console.error("Admin PUT site config error:", error);
+
+        res.status(500).json({
+            message: "Lỗi lưu cấu hình website",
+            error: error.message,
+        });
     }
 });
 
