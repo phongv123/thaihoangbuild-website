@@ -170,6 +170,19 @@ const siteConfigSchema = new mongoose.Schema(
         },
 
         // ==========================
+        // ABOUT HIGHLIGHTS
+        // ==========================
+
+        aboutHighlights: {
+            type: [String],
+            default: [
+                "Đội ngũ kiến trúc sư, kỹ sư giàu kinh nghiệm",
+                "Đội thợ thi công lành nghề, tuân thủ kỷ luật, an toàn lao động",
+                "Cam kết tiến độ, Đảm bảo chất lượng, Không phát sinh",
+            ],
+        },
+
+        // ==========================
         // PROCESS
         // ==========================
 
