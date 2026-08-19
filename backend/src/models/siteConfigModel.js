@@ -168,6 +168,31 @@ const siteConfigSchema = new mongoose.Schema(
             type: [serviceSchema],
             default: [],
         },
+
+        // ==========================
+        // PROCESS
+        // ==========================
+
+        processTitle: {
+            type: String,
+            default: "Quy trình thực hiện",
+        },
+
+        processSteps: {
+            type: [String],
+            default: [
+                "Liên hệ tư vấn & Khảo sát hiện trạng",
+                "Báo giá sơ bộ & Dự toán sơ bộ",
+                "Triển khai hồ sơ thiết kế",
+                "Bàn giao hồ sơ thiết kế",
+                "Dự toán & Báo giá chi tiết",
+                "Kí hợp đồng thi công",
+                "Sản xuất & Thi công & Lắp đặt",
+                "Giám sát thi công",
+                "Vệ sinh & Nghiệm thu & Bàn giao",
+                "Bảo hành & Chăm sóc khách hàng",
+            ],
+        },
     },
     {
         timestamps: true,
