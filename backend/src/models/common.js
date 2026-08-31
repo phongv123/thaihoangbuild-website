@@ -5,12 +5,32 @@ export const Category = mongoose.model('Category', new mongoose.Schema({
   type: { type: String, enum: ['project', 'product', 'material', 'post'], default: 'project' }
 }, opts))
 
-export const Project = mongoose.model('Project', new mongoose.Schema({
-  title: String,
-  excerpt: String,
-  cover: String,
-  category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' }
-}, opts))
+export const Project = mongoose.model(
+  'Project',
+  new mongoose.Schema(
+    {
+      title: String,
+      excerpt: String,
+      cover: String,
+
+      category: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category'
+      },
+
+      featuredHome: {
+        type: Boolean,
+        default: false
+      },
+
+      homeOrder: {
+        type: Number,
+        default: 0
+      }
+    },
+    opts
+  )
+)
 
 export const Product = mongoose.model('Product', new mongoose.Schema({
   title: String,
@@ -44,6 +64,60 @@ export const Lead = mongoose.model(
 );
 
 
-export const Banner = mongoose.model('Banner', new mongoose.Schema({
-  title: String, cover: String, link: String, order: Number
-}, opts))
+export const Banner = mongoose.model(
+  "Banner",
+  new mongoose.Schema(
+    {
+      page: {
+        type: String,
+        required: true,
+        enum: [
+          "home",
+          "about",
+          "projects",
+          "services",
+          "consulting",
+          "contact",
+        ],
+        default: "home",
+        index: true,
+      },
+
+      title: {
+        type: String,
+        default: "",
+      },
+
+      cover: {
+        type: String,
+        default: "",
+      },
+
+      subtitle: {
+        type: String,
+        default: "",
+      },
+
+      buttonText: {
+        type: String,
+        default: "",
+      },
+
+      link: {
+        type: String,
+        default: "",
+      },
+
+      order: {
+        type: Number,
+        default: 0,
+      },
+
+      isActive: {
+        type: Boolean,
+        default: true,
+      },
+    },
+    opts
+  )
+);
