@@ -6,13 +6,43 @@ const serviceSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-
         description: {
             type: String,
             default: "",
         },
-
         imageUrl: {
+            type: String,
+            default: "",
+        },
+    },
+    { _id: false }
+);
+
+const differenceItemSchema = new mongoose.Schema(
+    {
+        icon: {
+            type: String,
+            default: "users",
+        },
+        title: {
+            type: String,
+            default: "",
+        },
+        description: {
+            type: String,
+            default: "",
+        },
+    },
+    { _id: false }
+);
+
+const partnerSchema = new mongoose.Schema(
+    {
+        imageUrl: {
+            type: String,
+            default: "",
+        },
+        alt: {
             type: String,
             default: "",
         },
@@ -75,12 +105,12 @@ const siteConfigSchema = new mongoose.Schema(
 
         facebookUrl: {
             type: String,
-            default: "https://facebook.com/thaihoangbuild",
+            default: "",
         },
 
         youtubeUrl: {
             type: String,
-            default: "https://youtube.com/@thaihoangbuild",
+            default: "",
         },
 
         mapUrl: {
@@ -105,8 +135,7 @@ const siteConfigSchema = new mongoose.Schema(
 
         heroSubtitle: {
             type: String,
-            default:
-                "Thái Hoàng Build đồng hành tạo dựng không gian sống mơ ước đẳng cấp...",
+            default: "",
         },
 
         heroButtonText: {
@@ -120,7 +149,7 @@ const siteConfigSchema = new mongoose.Schema(
         },
 
         // ==========================
-        // ABOUT
+        // ABOUT - HOME
         // ==========================
 
         aboutTitle: {
@@ -136,8 +165,7 @@ const siteConfigSchema = new mongoose.Schema(
 
         aboutDescription: {
             type: String,
-            default:
-                "Thái Hoàng Build là đơn vị chuyên nghiệp hàng đầu tại Biên Hòa...",
+            default: "",
         },
 
         aboutImage1: {
@@ -160,26 +188,180 @@ const siteConfigSchema = new mongoose.Schema(
             default: 350,
         },
 
-        // ==========================
-        // SERVICES
-        // ==========================
-
         services: {
             type: [serviceSchema],
             default: [],
         },
 
-        // ==========================
-        // ABOUT HIGHLIGHTS
-        // ==========================
-
         aboutHighlights: {
             type: [String],
-            default: [
-                "Đội ngũ kiến trúc sư, kỹ sư giàu kinh nghiệm",
-                "Đội thợ thi công lành nghề, tuân thủ kỷ luật, an toàn lao động",
-                "Cam kết tiến độ, Đảm bảo chất lượng, Không phát sinh",
-            ],
+            default: [],
+        },
+
+        // ==========================
+        // ABOUT PAGE
+        // ==========================
+
+        aboutPageBannerUrl: {
+            type: String,
+            default: "/banner6.jpg",
+        },
+
+        aboutPageBannerTitle: {
+            type: String,
+            default: "Giới thiệu",
+        },
+
+        aboutPageEyebrow: {
+            type: String,
+            default: "Giới thiệu chung",
+        },
+
+        aboutPageTitle: {
+            type: String,
+            default: "Công ty TNHH THÁI HOÀNG BUILD",
+        },
+
+        aboutPageDescription: {
+            type: String,
+            default: "",
+        },
+
+        aboutPageServices: {
+            type: [String],
+            default: [],
+        },
+
+        aboutPageProfileImage: {
+            type: String,
+            default: "/anhHosonangluc.jpg",
+        },
+
+        aboutPageConstructionImage: {
+            type: String,
+            default: "/anhdangxaydung.jpg",
+        },
+
+        aboutPageProfileButtonText: {
+            type: String,
+            default: "Hồ sơ năng lực",
+        },
+
+        aboutPageContactButtonText: {
+            type: String,
+            default: "Liên hệ",
+        },
+
+        aboutPageContactButtonUrl: {
+            type: String,
+            default: "/contact",
+        },
+
+        // ==========================
+        // DIFFERENCE
+        // ==========================
+
+        differenceEyebrow: {
+            type: String,
+            default: "Sự khác biệt về",
+        },
+
+        differenceTitle: {
+            type: String,
+            default: "ThaiHoangBuild",
+        },
+
+        differenceImageUrl: {
+            type: String,
+            default: "/ansukhacbiet.png",
+        },
+
+        differenceVideoUrl: {
+            type: String,
+            default: "",
+        },
+
+        differenceItems: {
+            type: [differenceItemSchema],
+            default: [],
+        },
+
+        // ==========================
+        // PARTNERS
+        // ==========================
+
+        partnersEyebrow: {
+            type: String,
+            default: "Đối tác",
+        },
+
+        partnersTitle: {
+            type: String,
+            default: "Khách hàng tiêu biểu",
+        },
+
+        partners: {
+            type: [partnerSchema],
+            default: [],
+        },
+
+        // ==========================
+        // PROFILE
+        // ==========================
+
+        profileEyebrow: {
+            type: String,
+            default: "ThaiHoangBuild",
+        },
+
+        profileTitle: {
+            type: String,
+            default: "Hồ sơ năng lực",
+        },
+
+        profileFlipbookUrl: {
+            type: String,
+            default:
+                "https://online.fliphtml5.com/build2305/evxr/index.html",
+        },
+
+        // ==========================
+        // HOME - BÁO GIÁ
+        // ==========================
+
+        homeQuoteTitle: {
+            type: String,
+            default: "Đăng ký báo giá",
+        },
+
+        homeQuoteNamePlaceholder: {
+            type: String,
+            default: "Tên của bạn",
+        },
+
+        homeQuoteAddressPlaceholder: {
+            type: String,
+            default: "Địa chỉ",
+        },
+
+        homeQuoteEmailPlaceholder: {
+            type: String,
+            default: "Email",
+        },
+
+        homeQuotePhonePlaceholder: {
+            type: String,
+            default: "Điện thoại",
+        },
+
+        homeQuoteMessagePlaceholder: {
+            type: String,
+            default: "Yêu cầu",
+        },
+
+        homeQuoteSubmitText: {
+            type: String,
+            default: "Gửi yêu cầu",
         },
 
         // ==========================
@@ -193,18 +375,7 @@ const siteConfigSchema = new mongoose.Schema(
 
         processSteps: {
             type: [String],
-            default: [
-                "Liên hệ tư vấn & Khảo sát hiện trạng",
-                "Báo giá sơ bộ & Dự toán sơ bộ",
-                "Triển khai hồ sơ thiết kế",
-                "Bàn giao hồ sơ thiết kế",
-                "Dự toán & Báo giá chi tiết",
-                "Kí hợp đồng thi công",
-                "Sản xuất & Thi công & Lắp đặt",
-                "Giám sát thi công",
-                "Vệ sinh & Nghiệm thu & Bàn giao",
-                "Bảo hành & Chăm sóc khách hàng",
-            ],
+            default: [],
         },
     },
     {
